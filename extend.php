@@ -21,21 +21,18 @@ use Flarum\Discussion\Event\Deleted as DiscussionDeleted;
 use Flarum\User\Event\Saving;
 use Flarum\Likes\Event\PostWasLiked;
 use Flarum\Likes\Event\PostWasUnliked;
-use Mattoid\MoneyHistory\Listeners\CheckinSavedHistory;
-use Mattoid\MoneyHistory\Listeners\DiscussionWasDeletedHistory;
-use Mattoid\MoneyHistory\Listeners\DiscussionWasHiddenHistory;
-use Mattoid\MoneyHistory\Listeners\DiscussionWasRestoredHistory;
-use Mattoid\MoneyHistory\Listeners\DiscussionWasStartedHistory;
-use Mattoid\MoneyHistory\Listeners\MoneyHistoryListeners;
-use Mattoid\MoneyHistory\Listeners\PostWasDeletedHistory;
-use Mattoid\MoneyHistory\Listeners\PostWasHiddenHistory;
-use Mattoid\MoneyHistory\Listeners\PostWasLikedHistory;
-use Mattoid\MoneyHistory\Listeners\PostWasPostedHistory;
-use Mattoid\MoneyHistory\Listeners\PostWasRestoredHistory;
-use Mattoid\MoneyHistory\Listeners\PostWasUnlikedHistory;
-use Mattoid\MoneyHistory\Listeners\UserWillBeSavedHistory;
-use Mattoid\MoneyHistory\Middleware\HistoryMiddleware;
-use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
+use Mattoid\MoneyHistoryAuto\Listeners\CheckinSavedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\DiscussionWasDeletedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\DiscussionWasHiddenHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\DiscussionWasRestoredHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\DiscussionWasStartedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\PostWasDeletedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\PostWasHiddenHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\PostWasLikedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\PostWasPostedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\PostWasRestoredHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\PostWasUnlikedHistory;
+use Mattoid\MoneyHistoryAuto\Listeners\UserWillBeSavedHistory;
 
 $extend =  [
     (new Extend\Frontend('forum'))
@@ -45,8 +42,6 @@ $extend =  [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
     new Extend\Locales(__DIR__.'/locale'),
-
-    (new Extend\Middleware("api"))->add(HistoryMiddleware::class),
 
     (new Extend\Event())
         ->listen(Posted::class, PostWasPostedHistory::class)
@@ -58,7 +53,6 @@ $extend =  [
         ->listen(DiscussionHidden::class, DiscussionWasHiddenHistory::class)
         ->listen(DiscussionDeleted::class, DiscussionWasDeletedHistory::class)
         ->listen(Saving::class, UserWillBeSavedHistory::class)
-        ->listen(MoneyHistoryEvent::class, MoneyHistoryListeners::class),
 ];
 
 if (class_exists('Flarum\Likes\Event\PostWasLiked')) {
