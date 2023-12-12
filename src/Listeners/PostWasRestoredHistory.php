@@ -11,8 +11,8 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 
 class PostWasRestoredHistory
 {
-    protected $source = "POSTWASRESTORED";
-    protected $sourceDesc = "";
+    private $source = "POSTWASRESTORED";
+    private $sourceDesc = "";
 
     private $events;
     private $settings;

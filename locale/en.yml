@@ -1,3 +1,12 @@
 mattoid-money-history-auto:
   admin:
   forum:
+    checkin-saved: "Sign in reward"
+    discussion-was-started: "Posting rewards"
+    post-was-posted: "Reply rewards"
+    post-was-liked: "Received likes and received rewards"
+    post-was-unliked: "Cancel like"
+    discussion-was-deleted: "Delete post deduction"
+    post-was-deleted: "Delete reply and deduct fees"
+    system-rewards: "System rewards"
+    searching-recipient: "transfer accounts"

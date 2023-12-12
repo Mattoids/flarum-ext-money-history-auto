@@ -11,8 +11,8 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 
 class DiscussionWasRestoredHistory
 {
-    protected $source = "DISCUSSIONWASRESTORED";
-    protected $sourceDesc = "";
+    private $source = "DISCUSSIONWASRESTORED";
+    private $sourceDesc = "";
 
     private $events;
     private $settings;

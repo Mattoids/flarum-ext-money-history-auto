@@ -12,8 +12,8 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 class DiscussionWasHiddenHistory
 {
 
-    protected $source = "DISCUSSIONWASHIDDEN";
-    protected $sourceDesc = "";
+    private $source = "DISCUSSIONWASHIDDEN";
+    private $sourceDesc = "";
 
     private $events;
     private $settings;

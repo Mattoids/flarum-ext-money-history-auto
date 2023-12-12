@@ -11,8 +11,8 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 
 class UserWillBeSavedHistory
 {
-    protected $source = "USERWILLBESAVED";
-    protected $sourceDesc = "";
+    private $source = "USERWILLBESAVED";
+    private $sourceDesc = "系统/管理员发放";
 
     private $events;
     private $settings;
@@ -23,7 +23,7 @@ class UserWillBeSavedHistory
         $this->events = $events;
         $this->settings = $settings;
 
-        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.source-desc");
+        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.system-rewards");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }
 

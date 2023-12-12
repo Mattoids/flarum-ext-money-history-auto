@@ -10,8 +10,8 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 
 class DiscussionWasStartedHistory
 {
-    protected $source = "DISCUSSIONWASSTARTED";
-    protected $sourceDesc = "发帖奖励";
+    private $source = "DISCUSSIONWASSTARTED";
+    private $sourceDesc = "发帖奖励";
 
     private $events;
     private $settings;
@@ -22,7 +22,7 @@ class DiscussionWasStartedHistory
         $this->events = $events;
         $this->settings = $settings;
 
-        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.source-desc");
+        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.discussion-was-started");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }
 

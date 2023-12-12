@@ -10,8 +10,8 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 
 class PostWasUnlikedHistory
 {
-    protected $source = "POSTWASUNLIKED";
-    protected $sourceDesc = "";
+    private $source = "POSTWASUNLIKED";
+    private $sourceDesc = "取消点赞";
 
     private $events;
     private $settings;
@@ -22,7 +22,7 @@ class PostWasUnlikedHistory
         $this->events = $events;
         $this->settings = $settings;
 
-        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.source-desc");
+        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.post-was-unliked");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }
 

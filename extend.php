@@ -33,6 +33,8 @@ use Mattoid\MoneyHistoryAuto\Listeners\PostWasPostedHistory;
 use Mattoid\MoneyHistoryAuto\Listeners\PostWasRestoredHistory;
 use Mattoid\MoneyHistoryAuto\Listeners\PostWasUnlikedHistory;
 use Mattoid\MoneyHistoryAuto\Listeners\UserWillBeSavedHistory;
+use Mattoid\MoneyHistoryAuto\Middleware\DistributeAllHistoryMiddleware;
+use Mattoid\MoneyHistoryAuto\Middleware\TransferHistoryMiddleware;
 
 $extend =  [
     (new Extend\Frontend('forum'))
@@ -42,6 +44,10 @@ $extend =  [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
     new Extend\Locales(__DIR__.'/locale'),
+
+    (new Extend\Middleware("api"))
+        ->add(DistributeAllHistoryMiddleware::class)
+        ->add(TransferHistoryMiddleware::class),
 
     (new Extend\Event())
         ->listen(Posted::class, PostWasPostedHistory::class)

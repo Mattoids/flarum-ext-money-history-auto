@@ -2,3 +2,11 @@ mattoid-money-history-auto:
   admin:
   forum:
     checkin-saved: "签到奖励"
+    discussion-was-started: "发帖奖励"
+    post-was-posted: "回帖奖励"
+    post-was-liked: "收到点赞获得奖励"
+    post-was-unliked: "回收点赞奖励"
+    discussion-was-deleted: "删帖扣除"
+    post-was-deleted: "删除回复扣费"
+    system-rewards: "系统奖励"
+    searching-recipient: "转账"
