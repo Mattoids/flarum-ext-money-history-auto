@@ -9,4 +9,5 @@ mattoid-money-history-auto:
     discussion-was-deleted: "删帖扣除"
     post-was-deleted: "删除回复扣费"
     system-rewards: "系统奖励"
+    admin-rewards: "管理员发放奖励"
     searching-recipient: "转账"

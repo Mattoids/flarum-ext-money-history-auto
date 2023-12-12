@@ -9,4 +9,5 @@ mattoid-money-history-auto:
     discussion-was-deleted: "Delete post deduction"
     post-was-deleted: "Delete reply and deduct fees"
     system-rewards: "System rewards"
+    admin-rewards: "Administrators distribute rewards"
     searching-recipient: "transfer accounts"

@@ -34,6 +34,7 @@ use Mattoid\MoneyHistoryAuto\Listeners\PostWasRestoredHistory;
 use Mattoid\MoneyHistoryAuto\Listeners\PostWasUnlikedHistory;
 use Mattoid\MoneyHistoryAuto\Listeners\UserWillBeSavedHistory;
 use Mattoid\MoneyHistoryAuto\Middleware\DistributeAllHistoryMiddleware;
+use Mattoid\MoneyHistoryAuto\Middleware\MoneyRewardsMiddleware;
 use Mattoid\MoneyHistoryAuto\Middleware\TransferHistoryMiddleware;
 
 $extend =  [
@@ -47,6 +48,7 @@ $extend =  [
 
     (new Extend\Middleware("api"))
         ->add(DistributeAllHistoryMiddleware::class)
+        ->add(MoneyRewardsMiddleware::class)
         ->add(TransferHistoryMiddleware::class),
 
     (new Extend\Event())
