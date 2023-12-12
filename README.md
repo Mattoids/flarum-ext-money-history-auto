@@ -9,13 +9,13 @@ A [Flarum](http://flarum.org) extension. money history
 Install with composer:
 
 ```sh
-composer require mattoid/flarum-ext-money-history:"*"
+composer require mattoid/flarum-ext-money-history-auto:"*"
 ```
 
 ## Updating
 
 ```sh
-composer update mattoid/flarum-ext-money-history:"*"
+composer update mattoid/flarum-ext-money-history-auto:"*"
 php flarum migrate
 php flarum cache:clear
 ```
