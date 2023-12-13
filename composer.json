@@ -7,8 +7,7 @@
     "type": "flarum-extension",
     "license": "LPL-1.02",
     "require": {
-        "flarum/core": "^1.2.0",
-        "mattoid/flarum-ext-money-history": "^1.0"
+        "flarum/core": "^1.2.0"
     },
     "authors": [
         {
