@@ -37,7 +37,6 @@ class MoneyRewardsMiddleware implements MiddlewareInterface
         $response = $handler->handle($request);
 
         if ($response->getStatusCode() === 201 && preg_match('/\/posts\/\d*\/money-rewards/', $request->getUri())) {
-            app("log")->info(json_encode($request->getParsedBody()));
 
             $amount = Arr::get($request->getParsedBody(), 'data.attributes.amount');
             $createMoney = Arr::get($request->getParsedBody(), 'data.attributes.createMoney');
