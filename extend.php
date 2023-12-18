@@ -36,6 +36,7 @@ use Mattoid\MoneyHistoryAuto\Listeners\UserWillBeSavedHistory;
 use Mattoid\MoneyHistoryAuto\Middleware\DistributeAllHistoryMiddleware;
 use Mattoid\MoneyHistoryAuto\Middleware\MoneyRewardsMiddleware;
 use Mattoid\MoneyHistoryAuto\Middleware\TransferHistoryMiddleware;
+use Mattoid\MoneyHistoryAuto\Middleware\UserSaveMiddleware;
 
 $extend =  [
     (new Extend\Frontend('forum'))
@@ -49,7 +50,8 @@ $extend =  [
     (new Extend\Middleware("api"))
         ->add(DistributeAllHistoryMiddleware::class)
         ->add(MoneyRewardsMiddleware::class)
-        ->add(TransferHistoryMiddleware::class),
+        ->add(TransferHistoryMiddleware::class)
+        ->add(UserSaveMiddleware::class),
 
     (new Extend\Event())
         ->listen(Posted::class, PostWasPostedHistory::class)
@@ -60,7 +62,7 @@ $extend =  [
         ->listen(DiscussionRestored::class, DiscussionWasRestoredHistory::class)
         ->listen(DiscussionHidden::class, DiscussionWasHiddenHistory::class)
         ->listen(DiscussionDeleted::class, DiscussionWasDeletedHistory::class)
-        ->listen(Saving::class, UserWillBeSavedHistory::class)
+//        ->listen(Saving::class, UserWillBeSavedHistory::class)
 ];
 
 if (class_exists('Flarum\Likes\Event\PostWasLiked')) {

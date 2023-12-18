@@ -4,6 +4,7 @@ namespace Mattoid\MoneyHistoryAuto\Middleware;
 
 use Flarum\Http\RequestUtil;
 use Flarum\Locale\Translator;
+use Flarum\Post\Post;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -16,16 +17,16 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class TransferHistoryMiddleware implements MiddlewareInterface
+class UserSaveMiddleware implements MiddlewareInterface
 {
     private $events;
-    private $source = "TRANSFERMONEY";
-    private $sourceDesc;
+    private $source = "USERWILLBESAVED";
+    private $sourceDesc = '系统/管理员发放';
 
     public function __construct(Dispatcher $events, Translator $translator)
     {
         $this->events = $events;
-        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.searching-recipient");
+        $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.system-rewards");
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -35,16 +36,12 @@ class TransferHistoryMiddleware implements MiddlewareInterface
 
         $response = $handler->handle($request);
 
-        if ($response->getStatusCode() === 201 && strpos($request->getUri(), "/transferMoney")) {
-            $moneyTransfer = Arr::get($request->getParsedBody(), 'data.attributes.moneyTransfer');
-            $selectedUsers = json_decode(Arr::get($request->getParsedBody(), 'data.attributes.selectedUsers'), true);
-
-            $actor->money -= $moneyTransfer * count($selectedUsers);
-            $this->events->dispatch(new MoneyHistoryEvent($actor, -$moneyTransfer * count($selectedUsers), $this->source, $this->sourceDesc));
-
-            $userList = User::query()->selectRaw("*, '{$userId}' as create_user_id")->where("id", $selectedUsers)->get();
-
-            $this->events->dispatch(new MoneyAllHistoryEvent($userList, $moneyTransfer, $this->source, $this->sourceDesc));
+        $attributes = Arr::get($request->getParsedBody(), 'data.attributes');
+        if ($response->getStatusCode() == 200 && strpos($request->getUri(), '/users/') && $request->getMethod() == 'PATCH' && $actor->money != $attributes['money']) {
+            $money = (float)$attributes['money'] - $actor->money;
+            $actor->init_money = $actor->money;
+            $actor->money = $attributes['money'];
+            $this->events->dispatch(new MoneyHistoryEvent($actor, $money, $this->source, $this->sourceDesc));
         }
 
         return $response;
