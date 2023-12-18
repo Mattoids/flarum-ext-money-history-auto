@@ -37,7 +37,7 @@ class UserSaveMiddleware implements MiddlewareInterface
         $response = $handler->handle($request);
 
         $attributes = Arr::get($request->getParsedBody(), 'data.attributes');
-        if ($response->getStatusCode() == 200 && strpos($request->getUri(), '/users/') && $request->getMethod() == 'PATCH' && $actor->money != $attributes['money']) {
+        if ($response->getStatusCode() == 200 && strpos($request->getUri(), '/users/') && $request->getMethod() == 'PATCH' && isset($attributes['money']) && $actor->money != $attributes['money']) {
             $money = (float)$attributes['money'] - $actor->money;
             $actor->init_money = $actor->money;
             $actor->money = $attributes['money'];
