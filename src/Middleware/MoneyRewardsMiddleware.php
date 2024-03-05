@@ -44,14 +44,14 @@ class MoneyRewardsMiddleware implements MiddlewareInterface
             $createMoney = Arr::get($request->getParsedBody(), 'data.attributes.createMoney');
 
             if (!$createMoney) {
-                $this->events->dispatch(new MoneyHistoryEvent($actor, -$amount, $this->source, $this->sourceDesc));
+                $this->events->dispatch(new MoneyHistoryEvent($actor, -$amount, $this->source, $this->sourceDesc, $this->sourceKey));
             }
 
             $postId = Arr::get($request->getAttribute("routeParameters"), "id");
             $post = Post::query()->where('id', $postId)->first();
             $user = User::query()->where('id', $post->user_id)->first();
             $user->create_user_id = $userId;
-            $this->events->dispatch(new MoneyHistoryEvent($user, $amount, $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyHistoryEvent($user, $amount, $this->source, $this->sourceDesc, $this->sourceKey));
         }
 
         return $response;

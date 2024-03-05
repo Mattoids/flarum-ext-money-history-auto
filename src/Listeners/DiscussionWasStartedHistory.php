@@ -31,6 +31,6 @@ class DiscussionWasStartedHistory
     public function handle(Started $event) {
         $money = (float)$this->settings->get('antoinefr-money.moneyfordiscussion', 0);
 
-        $this->events->dispatch(new MoneyHistoryEvent($event->actor, $money, $this->source, $this->sourceDesc));
+        $this->events->dispatch(new MoneyHistoryEvent($event->actor, $money, $this->source, $this->sourceDesc, $this->sourceKey));
     }
 }

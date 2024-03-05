@@ -34,6 +34,6 @@ class PostWasLikedHistory
         app("log")->info(json_encode($event->user_id));
         app("log")->info(json_encode($event->post->user));
         $event->post->user->create_user_id = $event->user_id;
-        $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc));
+        $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
     }
 }

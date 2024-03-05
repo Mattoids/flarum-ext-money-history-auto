@@ -44,7 +44,7 @@ class UserSaveMiddleware implements MiddlewareInterface
             $money = (float)$attributes['money'] - $user->money;
             $user->init_money = $user->money;
             $user->money = $attributes['money'];
-            $this->events->dispatch(new MoneyHistoryEvent($user, $money, $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyHistoryEvent($user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
         }
 
         return $response;

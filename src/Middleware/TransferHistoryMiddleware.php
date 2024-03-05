@@ -42,11 +42,11 @@ class TransferHistoryMiddleware implements MiddlewareInterface
             $selectedUsers = json_decode(Arr::get($request->getParsedBody(), 'data.attributes.selectedUsers'), true);
 
             $actor->money -= $moneyTransfer * count($selectedUsers);
-            $this->events->dispatch(new MoneyHistoryEvent($actor, -$moneyTransfer * count($selectedUsers), $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyHistoryEvent($actor, -$moneyTransfer * count($selectedUsers), $this->source, $this->sourceDesc, $this->sourceKey));
 
             $userList = User::query()->selectRaw("*, '{$userId}' as create_user_id")->where("id", $selectedUsers)->get();
 
-            $this->events->dispatch(new MoneyAllHistoryEvent($userList, $moneyTransfer, $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyAllHistoryEvent($userList, $moneyTransfer, $this->source, $this->sourceDesc, $this->sourceKey));
         }
 
         return $response;

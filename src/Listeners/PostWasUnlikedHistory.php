@@ -32,6 +32,6 @@ class PostWasUnlikedHistory
     public function handle(PostWasUnliked $event) {
         $money = (float)$this->settings->get('antoinefr-money.moneyforlike', 0);
 
-        $this->events->dispatch(new MoneyHistoryEvent($event->post->user, -$money, $this->source, $this->sourceDesc));
+        $this->events->dispatch(new MoneyHistoryEvent($event->post->user, -$money, $this->source, $this->sourceDesc, $this->sourceKey));
     }
 }

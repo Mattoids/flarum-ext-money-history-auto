@@ -28,6 +28,6 @@ class CheckinSavedHistory
     public function handle(checkinUpdated $checkin) {
         $checkinRewardMoney = (float)$this->settings->get('ziven-forum-checkin.checkinRewardMoney', 0);
 
-        $this->events->dispatch(new MoneyHistoryEvent($checkin->user, $checkinRewardMoney, $this->source, $this->sourceDesc));
+        $this->events->dispatch(new MoneyHistoryEvent($checkin->user, $checkinRewardMoney, $this->source, $this->sourceDesc, $this->sourceKey));
     }
 }

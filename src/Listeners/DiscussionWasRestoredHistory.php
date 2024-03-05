@@ -33,7 +33,7 @@ class DiscussionWasRestoredHistory
         if ($this->autoremove == AutoRemoveEnum::HIDDEN) {
             $money = (float)$this->settings->get('antoinefr-money.moneyfordiscussion', 0);
 
-            $this->events->dispatch(new MoneyHistoryEvent($event->discussion->user, $money, $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyHistoryEvent($event->discussion->user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
         }
     }
 }

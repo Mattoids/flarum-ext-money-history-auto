@@ -33,7 +33,7 @@ class UserWillBeSavedHistory
         $attributes = Arr::get($event->data, 'attributes', []);
 
         if (array_key_exists('money', $attributes)) {
-            $this->events->dispatch(new MoneyHistoryEvent($event->user, (float)$attributes['money'], $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyHistoryEvent($event->user, (float)$attributes['money'], $this->source, $this->sourceDesc, $this->sourceKey));
         }
     }
 }

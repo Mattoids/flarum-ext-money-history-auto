@@ -42,7 +42,7 @@ class DistributeAllHistoryMiddleware implements MiddlewareInterface
 
             $userList = User::query()->selectRaw("*, '{$userId}' as create_user_id")->get();
 
-            $this->events->dispatch(new MoneyAllHistoryEvent($userList, $amount, $this->source, $this->sourceDesc));
+            $this->events->dispatch(new MoneyAllHistoryEvent($userList, $amount, $this->source, $this->sourceDesc, $this->sourceKey));
         }
 
 

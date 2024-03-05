@@ -36,7 +36,7 @@ class PostWasDeletedHistory
             if (strlen($event->post->content) >= $minimumLength) {
                 $money = (float)$this->settings->get('antoinefr-money.moneyforpost', 0);
 
-                $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc));
+                $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
             }
         }
     }
