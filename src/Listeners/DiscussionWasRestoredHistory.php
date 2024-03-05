@@ -12,6 +12,7 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 class DiscussionWasRestoredHistory
 {
     private $source = "DISCUSSIONWASRESTORED";
+    private $sourceKey;
     private $sourceDesc = "";
 
     private $events;
@@ -23,6 +24,7 @@ class DiscussionWasRestoredHistory
         $this->events = $events;
         $this->settings = $settings;
 
+        $this->sourceKey = "mattoid-money-history-auto.forum.source-desc";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.source-desc");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }

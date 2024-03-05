@@ -13,6 +13,7 @@ class DiscussionWasHiddenHistory
 {
 
     private $source = "DISCUSSIONWASHIDDEN";
+    private $sourceKey;
     private $sourceDesc = "";
 
     private $events;
@@ -24,6 +25,7 @@ class DiscussionWasHiddenHistory
         $this->events = $events;
         $this->settings = $settings;
 
+        $this->sourceKey = "mattoid-money-history-auto.forum.source-desc";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.source-desc");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }

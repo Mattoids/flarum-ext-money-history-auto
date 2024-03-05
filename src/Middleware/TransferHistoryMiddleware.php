@@ -20,11 +20,13 @@ class TransferHistoryMiddleware implements MiddlewareInterface
 {
     private $events;
     private $source = "TRANSFERMONEY";
+    private $sourceKey;
     private $sourceDesc;
 
     public function __construct(Dispatcher $events, Translator $translator)
     {
         $this->events = $events;
+        $this->sourceKey = "mattoid-money-history-auto.forum.searching-recipient";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.searching-recipient");
     }
 

@@ -11,6 +11,7 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 class PostWasLikedHistory
 {
     private $source = "POSTWASLIKED";
+    private $sourceKey;
     private $sourceDesc = "收到点赞获得奖励";
 
     private $events;
@@ -22,6 +23,7 @@ class PostWasLikedHistory
         $this->events = $events;
         $this->settings = $settings;
 
+        $this->sourceKey = "mattoid-money-history-auto.forum.post-was-liked";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.post-was-liked");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }

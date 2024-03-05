@@ -21,11 +21,13 @@ class MoneyRewardsMiddleware implements MiddlewareInterface
 {
     private $events;
     private $source = "MONEYREWARDS";
+    private $sourceKey;
     private $sourceDesc;
 
     public function __construct(Dispatcher $events, Translator $translator)
     {
         $this->events = $events;
+        $this->sourceKey = "mattoid-money-history-auto.forum.admin-rewards";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.admin-rewards");
     }
 

@@ -11,6 +11,7 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 class PostWasPostedHistory
 {
     private $source = "POSTWASPOSTED";
+    private $sourceKey;
     private $sourceDesc = "回帖奖励";
 
     private $events;
@@ -22,6 +23,7 @@ class PostWasPostedHistory
         $this->events = $events;
         $this->settings = $settings;
 
+        $this->sourceKey = "mattoid-money-history-auto.forum.post-was-posted";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.post-was-posted");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }

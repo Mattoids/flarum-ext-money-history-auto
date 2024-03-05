@@ -18,11 +18,13 @@ class DistributeAllHistoryMiddleware implements MiddlewareInterface
 {
     private $events;
     private $source = "BABCHDISTRIBUTION";
+    private $sourceKey = "";
     private $sourceDesc = "系统奖励";
 
     public function __construct(Dispatcher $events, Translator $translator)
     {
         $this->events = $events;
+        $this->sourceKey = "mattoid-money-history-auto.forum.system-rewards";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.system-rewards");
     }
 

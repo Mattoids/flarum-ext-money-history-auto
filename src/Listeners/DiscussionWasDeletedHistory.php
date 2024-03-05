@@ -12,6 +12,7 @@ use Mattoid\MoneyHistory\Event\MoneyHistoryEvent;
 class DiscussionWasDeletedHistory
 {
     private $source = "DISCUSSIONWASDELETED";
+    private $sourceKey;
     private $sourceDesc = "删帖扣除";
 
     private $events;
@@ -23,6 +24,7 @@ class DiscussionWasDeletedHistory
         $this->events = $events;
         $this->settings = $settings;
 
+        $this->sourceKey = "mattoid-money-history-auto.forum.discussion-was-deleted";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.discussion-was-deleted");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }

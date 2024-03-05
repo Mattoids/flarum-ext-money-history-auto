@@ -11,6 +11,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 class CheckinSavedHistory
 {
     private $source = "CHECKINSAVED";
+    private $sourceKey;
     private $sourceDesc = "签到奖励";
 
     private $events;
@@ -20,6 +21,7 @@ class CheckinSavedHistory
     {
         $this->events = $events;
         $this->settings = $settings;
+        $this->sourceKey = "mattoid-money-history-auto.forum.checkin-saved";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.checkin-saved");
     }
 
