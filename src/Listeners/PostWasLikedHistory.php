@@ -31,8 +31,6 @@ class PostWasLikedHistory
     public function handle(PostWasLiked $event) {
         $money = (float)$this->settings->get('antoinefr-money.moneyforlike', 0);
 
-        app("log")->info(json_encode($event->user_id));
-        app("log")->info(json_encode($event->post->user));
         $event->post->user->create_user_id = $event->user_id;
         $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
     }
