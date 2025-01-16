@@ -31,6 +31,13 @@ class DiscussionWasStartedHistory
     public function handle(Started $event) {
         $money = (float)$this->settings->get('antoinefr-money.moneyfordiscussion', 0);
 
-        $this->events->dispatch(new MoneyHistoryEvent($event->actor, $money, $this->source, $this->sourceDesc, $this->sourceKey));
+        $rewarded = $this->settings->get("mattoid-money-history-auto.privateChatsAreNotRewarded", 0);
+        if ($rewarded && $event->discussion->is_private) {
+            $user = $event->actor;
+            $user->money -= $money;
+            $user->save();
+        } else {
+            $this->events->dispatch(new MoneyHistoryEvent($event->actor, $money, $this->source, $this->sourceDesc, $this->sourceKey));
+        }
     }
 }

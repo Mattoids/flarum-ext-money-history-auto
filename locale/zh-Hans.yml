@@ -1,5 +1,7 @@
 mattoid-money-history-auto:
   admin:
+    private-chats-are-not-rewarded-requirement: "私密聊天频道不进行奖惩"
+    private-chats-are-not-rewarded: "私密聊天频道不做奖励"
   forum:
     checkin-saved: "签到奖励"
     discussion-was-started: "发帖奖励"

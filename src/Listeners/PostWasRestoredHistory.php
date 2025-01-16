@@ -36,7 +36,14 @@ class PostWasRestoredHistory
             if (strlen($event->post->content) >= $minimumLength) {
                 $money = (float)$this->settings->get('antoinefr-money.moneyforpost', 0);
 
-                $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
+                $rewarded = $this->settings->get("mattoid-money-history-auto.privateChatsAreNotRewarded", 0);
+                if ($rewarded && $event->post->discussion->is_private) {
+                    $user = $event->actor;
+                    $user->money -= $money;
+                    $user->save();
+                } else {
+                    $this->events->dispatch(new MoneyHistoryEvent($event->post->user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
+                }
             }
         }
     }

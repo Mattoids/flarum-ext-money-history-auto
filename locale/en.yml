@@ -1,5 +1,7 @@
 mattoid-money-history-auto:
   admin:
+    private-chats-are-not-rewarded-requirement: "Private chat channels do not have rewards or penalties."
+    private-chats-are-not-rewarded: "Private chat channels do not have rewards or penalties."
   forum:
     checkin-saved: "Sign in reward"
     discussion-was-started: "Posting rewards"

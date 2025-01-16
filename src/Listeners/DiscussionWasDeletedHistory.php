@@ -33,7 +33,14 @@ class DiscussionWasDeletedHistory
         if ($this->autoremove == AutoRemoveEnum::DELETED) {
             $money = (float)$this->settings->get('antoinefr-money.moneyfordiscussion', 0);
 
-            $this->events->dispatch(new MoneyHistoryEvent($event->discussion->user, -$money, $this->source, $this->sourceDesc, $this->sourceKey));
+            $rewarded = $this->settings->get("mattoid-money-history-auto.privateChatsAreNotRewarded", 0);
+            if ($rewarded && $event->discussion->is_private) {
+                $user = $event->discussion->user;
+                $user->money += $money;
+                $user->save();
+            } else {
+                $this->events->dispatch(new MoneyHistoryEvent($event->discussion->user, -$money, $this->source, $this->sourceDesc, $this->sourceKey));
+            }
         }
     }
 }
