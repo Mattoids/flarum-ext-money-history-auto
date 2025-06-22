@@ -39,6 +39,16 @@ class PostWasPostedHistory
     }
 
     public function handle(Posted $event) {
+        if ($event->post) {
+            $user = $event->actor;
+            $discussionTags = $event->post->discussion->tags;
+            foreach ($discussionTags as $tag) {
+                if ($user->hasPermission("tag{$tag->id}.discussion.money.disable_money") && !$user->isAdmin()) {
+                    return false;
+                }
+            }
+        }
+
         if ($event->post['number'] > 1) {
             $minimumLength = (int)$this->settings->get('antoinefr-money.postminimumlength', 0);
 
