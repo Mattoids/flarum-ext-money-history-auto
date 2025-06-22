@@ -29,11 +29,21 @@ class PostWasHiddenHistory
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
     }
 
+    public function ignoreNotifyingUsers(string $content): string
+    {
+        if (!$this->settings->get('antoinefr-money.ignoreNotifyingUsers', false)) {
+            return $content;
+        }
+
+        $pattern = '/@.*(#\d+|#p\d+)/';
+        return trim(str_replace(["\r", "\n"], '', preg_replace($pattern, '', $content)));
+    }
+
     public function handle(PostHidden $event) {
         if ($this->autoremove == AutoRemoveEnum::HIDDEN) {
             $minimumLength = (int)$this->settings->get('antoinefr-money.postminimumlength', 0);
 
-            if (strlen($event->post->content) >= $minimumLength) {
+            if (mb_strlen($this->ignoreNotifyingUsers($event->post->content)) >= $minimumLength) {
                 $money = (float)$this->settings->get('antoinefr-money.moneyforpost', 0);
 
                 $rewarded = $this->settings->get("mattoid-money-history-auto.privateChatsAreNotRewarded", 0);
