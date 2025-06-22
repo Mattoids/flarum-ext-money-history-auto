@@ -39,17 +39,18 @@ class PostWasPostedHistory
     }
 
     public function handle(Posted $event) {
+        $permissions = true;
         if ($event->post) {
             $user = $event->actor;
             $discussionTags = $event->post->discussion->tags;
             foreach ($discussionTags as $tag) {
                 if ($user->hasPermission("tag{$tag->id}.discussion.money.disable_money") && !$user->isAdmin()) {
-                    return false;
+                    $permissions = false;
                 }
             }
         }
 
-        if ($event->post['number'] > 1) {
+        if ($event->post['number'] > 1 && $permissions) {
             $minimumLength = (int)$this->settings->get('antoinefr-money.postminimumlength', 0);
 
             if (mb_strlen($this->ignoreNotifyingUsers($event->post->content)) >= $minimumLength) {
