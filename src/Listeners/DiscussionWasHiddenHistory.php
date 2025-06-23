@@ -2,7 +2,7 @@
 
 namespace Mattoid\MoneyHistoryAuto\Listeners;
 
-use AntoineFr\Money\Listeners\AutoRemoveEnum;
+use AntoineFr\Money\AutoRemoveEnum;
 use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\Discussion\Event\Hidden as DiscussionHidden;
