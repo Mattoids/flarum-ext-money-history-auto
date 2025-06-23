@@ -18,6 +18,7 @@ class DiscussionWasDeletedHistory
     private $events;
     private $settings;
     private $autoremove;
+    private $cascaderemove;
 
     public function __construct(Dispatcher $events, SettingsRepositoryInterface $settings, Translator $translator)
     {
@@ -27,10 +28,13 @@ class DiscussionWasDeletedHistory
         $this->sourceKey = "mattoid-money-history-auto.forum.discussion-was-deleted";
         $this->sourceDesc = $translator->trans("mattoid-money-history-auto.forum.discussion-was-deleted");
         $this->autoremove = (int)$this->settings->get('antoinefr-money.autoremove', 1);
+        $this->cascaderemove = (bool) $this->settings->get('antoinefr-money.cascaderemove', false);
     }
 
     public function handle(DiscussionDeleted $event) {
-        if ($this->autoremove == AutoRemoveEnum::DELETED) {
+
+
+        if ($this->autoremove == AutoRemoveEnum::DELETED && $this->cascaderemove) {
             $money = (float)$this->settings->get('antoinefr-money.moneyfordiscussion', 0);
 
             $rewarded = $this->settings->get("mattoid-money-history-auto.privateChatsAreNotRewarded", 0);
