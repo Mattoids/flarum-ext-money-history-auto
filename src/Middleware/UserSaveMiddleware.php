@@ -34,17 +34,19 @@ class UserSaveMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $actor = RequestUtil::getActor($request);
-        $userId = Arr::get($request->getParsedBody(), 'data.id');
-
-        $user = User::query()->selectRaw("*, '{$actor->id}' as create_user_id")->where("id", $userId)->first();
-
         $response = $handler->handle($request);
         $attributes = Arr::get($request->getParsedBody(), 'data.attributes');
+
         if ($response->getStatusCode() == 200 && strpos($request->getUri(), '/users/') && $request->getMethod() == 'PATCH' && isset($attributes['money']) && $actor->money != $attributes['money']) {
-            $money = (float)$attributes['money'] - $user->money;
-            $user->init_money = $user->money;
-            $user->money = $attributes['money'];
-            $this->events->dispatch(new MoneyHistoryEvent($user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
+            $userId = Arr::get($request->getParsedBody(), 'data.id');
+            $user = User::query()->selectRaw("*, '{$actor->id}' as create_user_id")->where("id", $userId)->first();
+
+            if ($user) {
+                $money = (float) $attributes['money'] - $user->money;
+                $user->init_money = $user->money;
+                $user->money = $attributes['money'];
+                $this->events->dispatch(new MoneyHistoryEvent($user, $money, $this->source, $this->sourceDesc, $this->sourceKey));
+            }
         }
 
         return $response;
